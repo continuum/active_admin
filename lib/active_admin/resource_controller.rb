@@ -67,7 +67,7 @@ module ActiveAdmin
     #   2.  If we're rendering a custom action, we'll use the active_admin layout so
     #       that users can render any template inside Active Admin.
     def determine_active_admin_layout
-      ACTIVE_ADMIN_ACTIONS.include?(params[:action].to_sym) ? false : 'active_admin'
+       'active_admin'
     end
 
     # Calls the authentication method as defined in ActiveAdmin.authentication_method
