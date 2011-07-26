@@ -3,6 +3,14 @@ module ActiveAdmin
     module Pages
       class Show < Base
 
+        def build_page_only
+          super
+        end
+        
+        def build
+          ActiveAdmin.application.custom_layout ? build_page_only : super
+        end
+        
         def config
           active_admin_config.page_configs[:show] || ::ActiveAdmin::PageConfig.new
         end

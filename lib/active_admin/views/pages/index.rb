@@ -4,6 +4,14 @@ module ActiveAdmin
 
       class Index < Base
 
+        def build_page_only
+          super
+        end
+        
+        def build
+          ActiveAdmin.application.custom_layout ? build_page_only : super
+        end
+        
         def title
           active_admin_config.plural_resource_name
         end
@@ -11,8 +19,8 @@ module ActiveAdmin
         def config
           index_config || default_index_config
         end
-
-
+        
+        
         # Render's the index configuration that was set in the
         # controller. Defaults to rendering the ActiveAdmin::Pages::Index::Table
         def main_content

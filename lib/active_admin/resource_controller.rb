@@ -44,7 +44,7 @@ module ActiveAdmin
         @active_admin_config = config
         defaults  :resource_class => config.resource,
                   :route_prefix => config.route_prefix,
-                  :instance_name => config.underscored_resource_name
+                  :instance_name => config.underscored_resource_name 
       end
 
       public :belongs_to
@@ -59,6 +59,8 @@ module ActiveAdmin
       raise AbstractController::ActionNotFound unless action_methods.include?(params[:action])
     end
 
+    helper_method :active_admin_config
+   
     # Determine which layout to use.
     #
     #   1.  If we're rendering a standard Active Admin action, we want layout(false)
@@ -67,7 +69,7 @@ module ActiveAdmin
     #   2.  If we're rendering a custom action, we'll use the active_admin layout so
     #       that users can render any template inside Active Admin.
     def determine_active_admin_layout
-       ACTIVE_ADMIN_ACTIONS.include?(params[:action].to_sym) ? false : 'active_admin'
+      ActiveAdmin.application.custom_layout ? ActiveAdmin.application.custom_layout : ACTIVE_ADMIN_ACTIONS.include?(params[:action].to_sym) ? false : 'active_admin'
     end
 
     # Calls the authentication method as defined in ActiveAdmin.authentication_method
@@ -88,7 +90,7 @@ module ActiveAdmin
     def active_admin_config
       self.class.active_admin_config
     end
-    helper_method :active_admin_config
+ 
 
     def active_admin_application
       ActiveAdmin.application

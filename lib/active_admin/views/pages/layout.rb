@@ -6,6 +6,14 @@ module ActiveAdmin
       # out or when rendering custom actions.
       class Layout < Base
 
+        def build_page_only
+          super
+        end
+        
+        def build
+          ActiveAdmin.application.custom_layout ? build_page_only : super
+        end
+        
         def title
           assigns[:page_title] || I18n.t("active_admin.#{params[:action]}", :default => params[:action].to_s.titleize)
         end
@@ -16,7 +24,7 @@ module ActiveAdmin
           if content_for_layout.is_a?(Arbre::HTML::Element)
             current_dom_context.add_child content_for_layout.children
           else
-            text_node content_for_layout
+            text_node content_for_layout 
           end
         end
       end

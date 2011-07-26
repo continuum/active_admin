@@ -3,6 +3,14 @@ module ActiveAdmin
     module Pages
       class New < Base
 
+        def build_page_only
+          super
+        end
+        
+        def build
+          ActiveAdmin.application.custom_layout ? build_page_only : super
+        end
+        
         def title
           I18n.t('active_admin.new_model', :model => active_admin_config.resource_name)
         end

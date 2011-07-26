@@ -3,6 +3,14 @@ module ActiveAdmin
     module Pages
       class Dashboard < Base
 
+        def build_page_only
+          super
+        end
+        
+        def build
+          ActiveAdmin.application.custom_layout ? build_page_only : super
+        end
+        
         def main_content
           if assigns[:dashboard_sections] && assigns[:dashboard_sections].any?
             render_sections(assigns[:dashboard_sections])
