@@ -10,6 +10,10 @@ module ActiveAdmin
           build_page
         end
 
+        def to_html
+          ActiveAdmin.application.custom_layout ? content : super
+        end
+        
         def build_body
           super
         end 
@@ -35,19 +39,9 @@ module ActiveAdmin
         end
 
         def build_page_only
-          build_body
-          add_classes_to_body
-          within @body do
-            active_admin_application.stylesheets.each do |path|
-              link :href => stylesheet_path(path), :media => "screen", :rel => "stylesheet", :type => "text/css"
-            end
-            active_admin_application.javascripts.each do |path|
-              script :src => javascript_path(path), :type => "text/javascript"
-            end
-            div :id => "wrapper" do
-              build_title_bar
-              build_page_content
-            end
+          div :id => "wrapper" do
+            build_title_bar
+            build_page_content
           end
         end
         

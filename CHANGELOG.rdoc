@@ -1,3 +1,9 @@
+== 0.2.5
+
+===  Features & Enhancements
+
+* Add custom_layout settings, allow to use the application or custom layout with the admin.
+
 == 0.2.2 (2011-05-26)
 
 68 Commits by 13 Contributors
