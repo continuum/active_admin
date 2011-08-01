@@ -28,6 +28,8 @@ module ActiveAdmin
 
     # The buttons method always needs to be wrapped in a new buffer
     def buttons(*args, &block)
+      #options = I18n.t('active_admin.save') ?  : {:label => "hola mundo"}
+      
       content = with_new_form_buffer do
         block_given? ? super : super { commit_button_with_cancel_link }
       end
@@ -46,7 +48,8 @@ module ActiveAdmin
     end
 
     def commit_button_with_cancel_link
-      content = commit_button
+      options = {:label => I18n.t('active_admin.save')}  
+      content = commit_button(options)   
       content << cancel_link
     end
 
